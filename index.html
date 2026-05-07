@@ -1,207 +1,109 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>未寄出的信</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="未寄出的信"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="未寄出的信"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta property="og:type" content="blog"><meta property="og:title" content="未寄出的信"><meta property="og:url" content="https://daoyezongzi.github.io/"><meta property="og:site_name" content="未寄出的信"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://daoyezongzi.github.io/img/og_image.png"><meta property="article:author" content="daoyezongzi"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://daoyezongzi.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://daoyezongzi.github.io"},"headline":"未寄出的信","image":["https://daoyezongzi.github.io/img/og_image.png"],"author":{"@type":"Person","name":"daoyezongzi"},"publisher":{"@type":"Organization","name":"未寄出的信","logo":{"@type":"ImageObject","url":{"text":"未寄出的信"}}},"description":""}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
 
-  
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
 
-<meta name="generator" content="Hexo 8.1.2"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2026/05/07/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2026-05-07T15:32:58.062Z" itemprop="datePublished">2026-05-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2026/05/07/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2026/05/07/hello-world/" data-id="cuidRFBS5V432J4r_RU8oXgTj" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">May 2026</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2026/05/07/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2026 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><link rel="stylesheet" href="/css/custom.css"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">未寄出的信</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item is-active" href="/">首页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/links">友链</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-05-07T18:28:15.000Z" title="2026/5/8 02:28:15">2026-05-08</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:34:14.572Z" title="2026/5/8 02:34:14">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/tech-insights/">技术心得</a></span><span class="level-item">1 分钟读完 (大约223个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2026/05/08/%E6%9C%AA%E5%AF%84%E5%87%BA%E7%9A%84%E4%BF%A1%EF%BC%8C%E5%85%A8%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/">未寄出的信，全新的开始</a></p><div class="content"><p>##正文<br>上了大学，感谢我的朋友们，教会了我很多。<br>我其实对金融不是很感兴趣，我喜欢ai，我想走ai方向。<br>但是我其实是文科生，政史地出身。<br>其实我上大学很迷茫，因为绩点也不高，别的貌似也没学会。<br>我希望通过blog的形式来记录我的进步，让我在未来的某一天回头能看到，我挥洒汗水的道路旁开满了鲜花。<br>blog的标题是“未寄出的信”，表示心里没有说完的话，也许它们就藏在我的字里行间。<br>未寄出的信，新的开始。在这些过去寄给未来的信件中，我握住当下的坐标，坚定向前。<br>是为序。</p>
+<p>2026年5月9日深夜</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-05-07T18:11:33.000Z" title="2026/5/8 02:11:33">2026-05-08</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.753Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/poetry-archive/">诗歌归档</a></span><span class="level-item">几秒读完 (大约34个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2026/05/08/%E6%9F%B3/">柳</a></p><div class="content"><p>##正文</p>
+<p>绿漾枝头<br>忧坠心口<br>可怜她<br>宁作柳絮随风漂流<br>不敢伸手挽他衣袖<br>​<br>​《柳》<br>2025.6.3</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-12-28T18:24:52.000Z" title="2025/12/29 02:24:52">2025-12-29</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:27:20.344Z" title="2026/5/8 02:27:20">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/literary-essays/">文学随笔</a></span><span class="level-item">1 分钟读完 (大约188个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/12/29/%E9%9D%92%E8%93%9D%E8%89%B2%E7%9A%84%E4%BA%94%E7%82%B9%E9%92%9F/">青蓝色的五点钟</a></p><div class="content"><p>##背景<br>为了蹭同学大学活动的免费烤全羊写的。<br>但当时家里有事情要我赶回去，就没参加这个活动。</p>
+<p>##正文</p>
+<p>在青蓝色的五点钟，我写下这段话。<br>抬头是直插云霄的飞机，往前是昏黄的灯光，身后是2025的回忆。我告别了陪伴我的人，来到了杭州，举起未曾举起的相机，摁下未曾摁下的快门。<br>三千快门，百二十日。我还有想做的事，想去的街，想见的人。<br>愿梦不止于梦，愿我能做我自己。<br>愿这青蓝色的夜色常伴我，与你我同在。</p>
+<p>2025年12月29日</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-08-08T18:22:07.000Z" title="2025/8/9 02:22:07">2025-08-09</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:24:11.454Z" title="2026/5/8 02:24:11">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/literary-essays/">文学随笔</a></span><span class="level-item">几秒读完 (大约107个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/08/09/%E7%83%9F%E7%AC%BC%E5%AF%92%E6%B0%B4/">烟笼寒水</a></p><div class="content"><p>##背景<br>和老同学聚会，散会后作。</p>
+<p>##正文<br>我驶离宴会的欢歌。<br>烟笼寒水。在疾驰而过的时代中，我侧身望去，光线投入我散光的眼睛，呈放射状。<br>那是记忆的种子。<br>我深吸一口后朋味的、草木灰烬所产生的幸福。<br>——或许这就是青春的味道。</p>
+<p>2025年8月9日</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-06-20T18:06:08.000Z" title="2025/6/21 02:06:08">2025-06-21</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.762Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/poetry-archive/">诗歌归档</a></span><span class="level-item">1 分钟读完 (大约160个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/06/21/%E8%8F%B2%E6%9E%97/">菲林</a></p><div class="content"><p>##正文</p>
+<p>哦，你这<br>刹那的定格者<br>永恒的捕捉者<br>你<br>将自己封进<br>和你一样的<br>墨色。</p>
+<p>刺得你睁不开眼的<br>阳光。你瞥见<br>迷茫的白鸽欢唱着橄榄<br>虔诚的信徒歌颂着上苍<br>你的笑是那快门的清脆<br>——因为是你<br>大家走在了一起。</p>
+<p>可你，我的朋友<br>为什么<br>当玫瑰嫣红晕染开来<br>当海洋酒蓝缓缓褪去<br>当汹涌人潮逐渐远离<br>我却在这里发现你的身影<br>在另一片墨色之中<br>在角落的<br>垃圾桶。</p>
+<p>《菲林》<br>2025.6.21凌晨</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-06-11T18:03:32.000Z" title="2025/6/12 02:03:32">2025-06-12</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.774Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/poetry-archive/">诗歌归档</a></span><span class="level-item">几秒读完 (大约107个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/06/12/%E9%BB%91%E6%B2%99%E6%BB%A9/">黑沙滩</a></p><div class="content"><p>##背景<br>看到冰岛黑沙滩，有感。<br>当时写在草稿本上，考完高考归档在便签的几首小诗。<br>26&#x2F;05&#x2F;08</p>
+<p>##正文<br>当赤红的潮涌褪去<br>当玄黑的淬铁崩塌<br>当海蓝的岩浆冻结<br>只留下暗灰的余炭</p>
+<p>它<br>叹了口气<br>望向天空——那苍白的<br>绝望。<br>将自己掰碎<br>化作孤岛上的<br>黑沙滩。</p>
+<p>2025年6月12日</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-06-01T18:05:51.000Z" title="2025/6/2 02:05:51">2025-06-02</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.771Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/poetry-archive/">诗歌归档</a></span><span class="level-item">几秒读完 (大约58个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/06/02/%E9%B8%BD/">鸽</a></p><div class="content"><p>##背景<br>其实是讽刺意味。<br>26&#x2F;05&#x2F;08</p>
+<p>##正文</p>
+<p>黑夜<br>为她缀上<br>星辰<br>在<br>被黎明燃尽前。<br>可她<br>挥动翅膀<br>吐送欢歌<br>将羽毛挂上枝头，<br>于明亮的<br>白昼。</p>
+<p>《鸽》<br>2025.6.2有感</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-04-23T17:59:55.000Z" title="2025/4/24 01:59:55">2025-04-24</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.736Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/literary-essays/">文学随笔</a></span><span class="level-item">2 分钟读完 (大约323个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2025/04/24/%E4%BA%BA%E7%94%9F%E4%BD%95%E5%A4%84%E4%B8%8D%E9%9D%92%E5%B1%B1/">人生何处不青山</a></p><div class="content"><p>##背景<br>十八岁生日<br>26&#x2F;05&#x2F;08</p>
+<p>##正文<br>人生何处不青山。<br>到了我的十八岁。<br>爬九年的山，航九年的海，十八岁的花向着我绽放。<br>我曾迷茫，曾彷徨。我发现自己的呼声太小，没人听到；我发现自己被海浪席卷，在潮水中沉浮。<br>我曾受到伤害。伤痛让我怀疑自己，也一度落入低谷。<br>我曾封闭自己，害怕付出的真心没有回报。<br>我是个好面子的、自尊的、没头脑的、好妒忌的、孤僻的……<br>随你们怎么说。仍然有我爱的，仍然有爱我的。<br>我有三大追求:热烈地爱、痛快地恨，以及自由。<br>若为自由故，两者皆可抛。<br>很遗憾，现在的我什么也无法真正做到。但我正在努力。穆罕默德正在走向大山。<br>我的彷徨我的迷茫我的失落我的自私我的嫉妒我的忧郁，都是我自己。<br>我与我周旋久，宁做我。<br>人生何处不青山？<br>愿我的人生如旷野。<br>祝我十八岁生日快乐。</p>
+<p>2025年4月24日</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-12-09T17:56:31.000Z" title="2024/12/10 01:56:31">2024-12-10</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.758Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3/">他山之石</a></span><span class="level-item">4 分钟读完 (大约638个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/12/10/%E6%B0%B8%E8%BF%9C%E5%92%8C%E6%88%90%E5%8A%9F/">永远和成功</a></p><div class="content"><p>##背景<br>之前看到很喜欢的一段话，复制在我的便签里面，现在正好是做blog，就放进来了。</p>
+<p>##正文<br>我们的文化太过强调永远，并把“永远”和“成功”牢牢捆绑了起来。比如你开了一家咖啡店，这家店给你带来了很多快乐。但后来成本变高了，经营压力也变大了，你决定关掉这家店。社会对此的评价是:开店失败。如果你喜欢写作，还写了几本书。然后你兴趣发生了变化，不再写书了。社会对你的评价是:一个失败的作家。社会认为成功的必要条件是“永远”。一段持续几年的美好友情，最后两人渐行渐远。社会对此的评价是:你们不是“真正”的友谊。一个爱好你搞了几年，后来不搞了。社会对此的评价是:你不过是三分钟热度，这事情太可惜了。我认为很多美好的事情都会结束，但这不改变”它曾经很美好”的事实。当然这些美好结束的时候我们可以难过、可以追悼，但我们不能去否认它曾经的美好和成功。把“永远”列为美好和成功的必要条件，不仅是不现实的，也对我们没有任何好处。<br>这是朋友在信里送我的一段摘抄，我特别喜欢。一切都是过程，一切也只是过程，人在生死间两点一线，最后谁不是两手空空的走。如果凡事都要敲上“永远”的标签才算有分量，一切快乐都会显得太沉重太有负担了。我一直都说我想要轻盈的快乐，是因为我也总是无法克制自己对”永远”的那份贪念，总是觉得心累就是因为总是担忧当下的快乐是有时限的，但每每想到宇宙之大，我就会觉得自己对时间的恐惧非常多余且自作多情。我们得承认瞬间的价值，且不以非要一直延续它为目的地活着。仔细想想，宇宙里有什么不是暂时的？我们什么都带不走。</p>
+<p>2024年12月10日</p>
+</div></article></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2024-11-11T17:49:59.000Z" title="2024/11/12 01:49:59">2024-11-12</time>发表</span><span class="level-item"><time dateTime="2026-05-07T18:16:02.743Z" title="2026/5/8 02:16:02">2026-05-08</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/literary-essays/">文学随笔</a></span><span class="level-item">5 分钟读完 (大约721个字)</span></div></div><p class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2024/11/12/%E6%97%A0%E9%A2%98241112/">无题24/11/12</a></p><div class="content"><p>##背景<br>当时有感而发写的所谓“小说”，在我便签里面留着。<br>我当时还配了一张好朋友拍的我的背影，等我学会在文章里面加图片就加进来。<br>感慨啊！他当年拿相机给我拍的，我现在拥有了自己的相机，但是他的单反却卖掉了。<br>我当年的文笔居然这么不错。<br>在这个深夜，我被这个意气风发的少年写的文章震撼。<br>26&#x2F;05&#x2F;08凌晨</p>
+<p>##正文<br>末班电车。<br>天际线与记忆重合，十七岁的风吹过你耳边。<br>你看到了那一个背影。他眺望着远方，夕阳穿过白云，金色的年华闪烁在他的发丝间。<br>你以为你早就忘却了。那一张泛黄的旧回忆，你以为早就被丢入了时间的长河。可惜，时间是一块封装的水晶，那身影在脑海里，历久弥新。<br>你以为那少女仍在你的身后。她举着相机，你甚至能想象她的模样:披肩的黑发，纯真的眼神，那双大眼睛聚精会神地看着屏幕里的少年。<br>但你确是与她失散了。<br>人生南北多歧路，你考上了普通的大学，找到了普通的工作，成了你十七岁时路边随处可见的人。她则走上了艺术的道路，自此与你没了联系，你只能在朋友圈看到她的近照——你已经完全不认识她了。<br>十七岁的你，快乐地骑着白色的自行车，手里挥舞着路边随处可见的树枝。<br>现如今你看着他。你站在路边的树荫下，你看着他。他骑车经过你，带起了一阵热风，湿润了你的眼睛。<br>你想起了那盆绣球花。那是她送给你的，你曾给它取名为“新娘”。她祝你有幸福美满的人生，有无忧无虑的生活，有满心是你的新娘，永远有十七岁时的微笑。<br>你确是失去她了。散落一地的泥土，东倒西歪的酒瓶，昏暗的出租屋，晨曦照在你迷惘的脸上。<br>你确是失去“她”了。<br>十七岁的热风不再。路边随处可见的树枝被他随手一抛，丢给了现在的你。<br>十七岁的天际线与眼前重合。<br>金色的年华在发丝间闪烁。相机荧幕里的他回过身，他惊奇地发现，举着相机的是路边随处可见的自己。</p>
+<p>2024年11月12日</p>
+</div></article></div><nav class="pagination" role="navigation" aria-label="pagination"><div class="pagination-previous is-invisible is-hidden-mobile"><a href="/page/0/">上一页</a></div><div class="pagination-next"><a href="/page/2/">下一页</a></div><ul class="pagination-list is-hidden-mobile"><li><a class="pagination-link is-current" href="/">1</a></li><li><a class="pagination-link" href="/page/2/">2</a></li></ul></nav></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.jpg" alt="稻叶粽子"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">稻叶粽子</p><p class="is-size-6 is-block">量化金融专业｜摄影师｜AI 绘画、翻唱丨贝斯手｜FPS 爱好者｜文学、哲学爱好者丨技术栈学习中</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>浙江工业大学 / ZJUT</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives/"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories/"><p class="title">5</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags/"><p class="title">11</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/daoyezongzi" target="_blank" rel="me noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/daoyezongzi"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3/"><span class="level-start"><span class="level-item">他山之石</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%93%B2%E5%AD%A6%E6%80%9D%E8%80%83/"><span class="level-start"><span class="level-item">哲学思考</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/categories/tech-insights/"><span class="level-start"><span class="level-item">技术心得</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/literary-essays/"><span class="level-start"><span class="level-item">文学随笔</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="/categories/poetry-archive/"><span class="level-start"><span class="level-item">诗歌归档</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-07T18:28:15.000Z">2026-05-08</time></p><p class="title"><a href="/2026/05/08/%E6%9C%AA%E5%AF%84%E5%87%BA%E7%9A%84%E4%BF%A1%EF%BC%8C%E5%85%A8%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/">未寄出的信，全新的开始</a></p><p class="categories"><a href="/categories/tech-insights/">技术心得</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2026-05-07T18:11:33.000Z">2026-05-08</time></p><p class="title"><a href="/2026/05/08/%E6%9F%B3/">柳</a></p><p class="categories"><a href="/categories/poetry-archive/">诗歌归档</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-12-28T18:24:52.000Z">2025-12-29</time></p><p class="title"><a href="/2025/12/29/%E9%9D%92%E8%93%9D%E8%89%B2%E7%9A%84%E4%BA%94%E7%82%B9%E9%92%9F/">青蓝色的五点钟</a></p><p class="categories"><a href="/categories/literary-essays/">文学随笔</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-08-08T18:22:07.000Z">2025-08-09</time></p><p class="title"><a href="/2025/08/09/%E7%83%9F%E7%AC%BC%E5%AF%92%E6%B0%B4/">烟笼寒水</a></p><p class="categories"><a href="/categories/literary-essays/">文学随笔</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-06-20T18:06:08.000Z">2025-06-21</time></p><p class="title"><a href="/2025/06/21/%E8%8F%B2%E6%9E%97/">菲林</a></p><p class="categories"><a href="/categories/poetry-archive/">诗歌归档</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2026/05/"><span class="level-start"><span class="level-item">五月 2026</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/12/"><span class="level-start"><span class="level-item">十二月 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/08/"><span class="level-start"><span class="level-item">八月 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/06/"><span class="level-start"><span class="level-item">六月 2025</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/04/"><span class="level-start"><span class="level-item">四月 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/12/"><span class="level-start"><span class="level-item">十二月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2024/11/"><span class="level-start"><span class="level-item">十一月 2024</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/10/"><span class="level-start"><span class="level-item">十月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/02/"><span class="level-start"><span class="level-item">二月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/06/"><span class="level-start"><span class="level-item">六月 2022</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2000/01/"><span class="level-start"><span class="level-item">一月 2000</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/%E5%93%B2%E5%AD%A6-%E6%91%98%E5%BD%95/"><span class="tag">-哲学 -摘录</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%96%87%E5%AD%A6/"><span class="tag">-文学</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%96%87%E5%AD%A6-%E5%B0%8F%E8%AF%B4/"><span class="tag">-文学 -小说</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%96%87%E5%AD%A6-%E8%AF%97%E6%AD%8C/"><span class="tag">-文学 -诗歌</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%96%87%E5%AD%A6-%E8%AF%BB%E5%90%8E%E6%84%9F/"><span class="tag">-文学 -读后感</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%96%87%E5%AD%A6-%E9%9A%8F%E7%AC%94/"><span class="tag">-文学 -随笔</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%AF%97%E6%AD%8C/"><span class="tag">-诗歌</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">-随笔</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%85%A5%E9%97%A8/"><span class="tag">入门</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">未寄出的信</a><p class="is-size-7"><span>&copy; 2026 daoyezongzi</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2026 daoyezongzi</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-cn");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><!-- hexo injector body_end start --><script src="/js/page-transition.js" defer></script><script src="/js/category-tree.js" defer></script><!-- hexo injector body_end end --></body></html>

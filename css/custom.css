@@ -1,0 +1,200 @@
+:root {
+    --glass-surface: rgba(255, 255, 255, 0.42);
+    --glass-surface-strong: rgba(255, 255, 255, 0.52);
+    --glass-surface-soft: rgba(255, 255, 255, 0.32);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 16px 40px rgba(15, 23, 32, 0.22);
+    --glass-blur: 14px;
+    --glass-header-surface: rgba(255, 255, 255, 0.72);
+    --glass-header-border: rgba(255, 255, 255, 0.44);
+    --glass-header-shadow: 0 10px 28px rgba(15, 23, 32, 0.18);
+}
+
+body {
+    background-color: #0f1720;
+    background-image: linear-gradient(rgba(15, 23, 32, 0.48), rgba(15, 23, 32, 0.48)), url('/img/bg-main.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.section,
+.footer {
+    background: transparent;
+}
+
+.navbar-main {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--glass-header-border);
+    box-shadow: var(--glass-header-shadow);
+    background-color: var(--glass-header-surface) !important;
+    backdrop-filter: blur(calc(var(--glass-blur) + 2px)) saturate(155%);
+    -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 2px)) saturate(155%);
+}
+
+.navbar-main .navbar-item:hover,
+.navbar-main .navbar-item.is-active {
+    background-color: rgba(255, 255, 255, 0.42) !important;
+}
+
+.card,
+.footer {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+}
+
+.card {
+    background-color: var(--glass-surface) !important;
+}
+
+.footer {
+    background-color: var(--glass-surface-soft) !important;
+}
+
+.widget .menu-list a {
+    margin-bottom: 0.45rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background-color: rgba(255, 255, 255, 0.12);
+    transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.widget .menu-list a:hover,
+.widget .menu-list a.is-active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(2px);
+}
+
+.widget[data-type="categories"] .menu-list a {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.widget[data-type="categories"] .menu-list > li {
+    margin-bottom: 0.6rem;
+}
+
+.widget[data-type="categories"] .menu-list > li:last-child {
+    margin-bottom: 0;
+}
+
+.widget[data-type="categories"] .menu-list li ul {
+    margin-top: 0.35rem;
+}
+
+.widget[data-type="categories"] .menu-list li ul li {
+    margin-bottom: 0.25rem;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > a {
+    position: relative;
+    padding-left: 1.45rem;
+    user-select: none;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > a::before {
+    content: '';
+    position: absolute;
+    left: 0.45rem;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-top: 0.28rem solid transparent;
+    border-bottom: 0.28rem solid transparent;
+    border-left: 0.4rem solid currentColor;
+    opacity: 0.75;
+    transform: translateY(-50%) rotate(0deg);
+    transform-origin: 32% 50%;
+    transition: transform 0.2s ease;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node.is-expanded > a::before {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node.is-loading > a::before {
+    opacity: 0.45;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > a:focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.62);
+    outline-offset: 2px;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list {
+    margin-top: 0.35rem;
+    margin-left: 0.35rem;
+    padding-left: 0.8rem;
+    border-left: 1px dashed rgba(255, 255, 255, 0.24);
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li {
+    margin-bottom: 0.22rem;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li:last-child {
+    margin-bottom: 0;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li > a {
+    margin-bottom: 0;
+    padding: 0.14rem 0 0.14rem 0.4rem;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    transform: none;
+    font-size: 0.92rem;
+    line-height: 1.35;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li > a:hover,
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li > a.is-active {
+    background: transparent;
+    border-color: transparent;
+    transform: none;
+    text-decoration: underline;
+}
+
+.widget[data-type="categories"] .menu-list li.category-title-node > ul.category-post-list > li.is-empty {
+    padding: 0.1rem 0.4rem;
+    color: rgba(247, 250, 252, 0.72);
+    font-size: 0.86rem;
+}
+
+.widget .tag {
+    background: rgba(15, 23, 32, 0.68) !important;
+    color: #f7fafc !important;
+}
+
+.widget[data-type="profile"] .media-content .is-size-6.is-block {
+    white-space: pre-line;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .card,
+    .footer,
+    .widget .menu-list a {
+        background-color: var(--glass-surface-strong) !important;
+    }
+
+    .navbar-main {
+        background-color: var(--glass-header-surface) !important;
+    }
+}
+
+@media (max-width: 1023px) {
+    body {
+        background-attachment: scroll;
+    }
+
+}
