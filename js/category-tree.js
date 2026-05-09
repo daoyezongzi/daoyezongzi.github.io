@@ -2,6 +2,7 @@
 
 (function() {
     const categoryPostCache = new Map();
+    const POST_LIST_FADE_MS = 500;
 
     function getDirectChildByTag(element, tagName) {
         const targetTag = tagName.toUpperCase();
@@ -41,13 +42,46 @@
         }
     }
 
+    function clearHideTimer(postList) {
+        if (postList.__hideTimerId) {
+            window.clearTimeout(postList.__hideTimerId);
+            postList.__hideTimerId = null;
+        }
+    }
+
+    function expandPostList(postList) {
+        clearHideTimer(postList);
+        postList.hidden = false;
+        postList.setAttribute('aria-hidden', 'false');
+        postList.classList.remove('is-hiding');
+        requestAnimationFrame(function() {
+            postList.classList.add('is-visible');
+        });
+    }
+
+    function collapsePostList(postList) {
+        clearHideTimer(postList);
+        postList.setAttribute('aria-hidden', 'true');
+        postList.classList.remove('is-visible');
+        postList.classList.add('is-hiding');
+        postList.__hideTimerId = window.setTimeout(function() {
+            postList.hidden = true;
+            postList.classList.remove('is-hiding');
+            postList.__hideTimerId = null;
+        }, POST_LIST_FADE_MS);
+    }
+
     function setExpandedState(node, anchor, expanded) {
         const postList = getDirectPostList(node);
         node.classList.toggle('is-expanded', expanded);
         node.classList.toggle('is-collapsed', !expanded);
         anchor.setAttribute('aria-expanded', String(expanded));
         if (postList) {
-            postList.hidden = !expanded;
+            if (expanded) {
+                expandPostList(postList);
+            } else {
+                collapsePostList(postList);
+            }
         }
     }
 

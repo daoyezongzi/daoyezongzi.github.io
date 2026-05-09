@@ -1,13 +1,43 @@
 'use strict';
 
 (function() {
-    const TRANSITION_MS = 220;
+    const TRANSITION_MS = 420;
     const READY_CLASS = 'page-transition-ready';
     const LEAVING_CLASS = 'page-transition-leaving';
+    const ENTERING_CLASS = 'page-transition-entering';
+    const ENTERING_FLAG_KEY = 'page_transition_entering';
+    const prefetchRequestCache = new Map();
+    let isNavigating = false;
+
+    function setEnteringFlag() {
+        try {
+            sessionStorage.setItem(ENTERING_FLAG_KEY, '1');
+        } catch (error) {}
+    }
+
+    function clearEnteringFlag() {
+        try {
+            sessionStorage.removeItem(ENTERING_FLAG_KEY);
+        } catch (error) {}
+    }
 
     function markReady() {
-        document.body.classList.add(READY_CLASS);
-        document.body.classList.remove(LEAVING_CLASS);
+        const body = document.body;
+        const root = document.documentElement;
+        if (!body) {
+            return;
+        }
+
+        body.classList.remove(LEAVING_CLASS);
+        clearEnteringFlag();
+        if (body.classList.contains(READY_CLASS)) {
+            return;
+        }
+
+        window.requestAnimationFrame(function() {
+            body.classList.add(READY_CLASS);
+            root.classList.remove(ENTERING_CLASS);
+        });
     }
 
     function isInternalNavigableLink(anchor) {
@@ -47,6 +77,34 @@
         return true;
     }
 
+    function getResolvedUrl(href) {
+        try {
+            return new URL(href, window.location.href).toString();
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function prefetchPage(url) {
+        if (!url || prefetchRequestCache.has(url) || typeof window.fetch !== 'function') {
+            return;
+        }
+
+        const request = fetch(url, {
+            method: 'GET',
+            credentials: 'same-origin',
+            cache: 'force-cache'
+        })
+            .then(function() {
+                return null;
+            })
+            .catch(function() {
+                return null;
+            });
+
+        prefetchRequestCache.set(url, request);
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', markReady, { once: true });
     } else {
@@ -68,10 +126,23 @@
             return;
         }
 
+        if (isNavigating) {
+            event.preventDefault();
+            return;
+        }
+
+        const nextUrl = getResolvedUrl(anchor.href);
+        if (!nextUrl) {
+            return;
+        }
+
         event.preventDefault();
+        isNavigating = true;
+        setEnteringFlag();
+        prefetchPage(nextUrl);
         document.body.classList.add(LEAVING_CLASS);
         window.setTimeout(function() {
-            window.location.href = anchor.href;
+            window.location.href = nextUrl;
         }, TRANSITION_MS);
     });
 })();
