@@ -4,7 +4,7 @@
     const SITE_INFO_PATH = '/site-info.json';
     const WIDGET_SELECTOR = '.widget[data-type="site-info"]';
     const LEFT_COLUMN_SELECTOR = '.column-left';
-    const BUSUANZI_SCRIPT_SRC = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+    const BUSUANZI_SCRIPT_SRC = 'https://cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js';
     const TEXT = {
         menuLabel: '\u7f51\u7ad9\u4fe1\u606f',
         postCount: '\u6587\u7ae0\u6570\u76ee',
@@ -81,7 +81,7 @@
             '<ul class="menu-list site-info-list">' +
             '<li><span class="site-info-label">' + TEXT.postCount + '</span><span class="site-info-separator">:</span><span class="site-info-value" data-field="post_count">0</span></li>' +
             '<li><span class="site-info-label">' + TEXT.wordCount + '</span><span class="site-info-separator">:</span><span class="site-info-value" data-field="word_count">0</span></li>' +
-            '<li><span class="site-info-label">' + TEXT.visitorCount + '</span><span class="site-info-separator">:</span><span class="site-info-value" id="busuanzi_container_site_uv"><span id="busuanzi_value_site_uv">0</span></span></li>' +
+            '<li><span class="site-info-label">' + TEXT.visitorCount + '</span><span class="site-info-separator">:</span><span class="site-info-value" id="busuanzi_site_uv">0</span></li>' +
             '<li><span class="site-info-label">' + TEXT.lastUpdatedAt + '</span><span class="site-info-separator">:</span><span class="site-info-value" data-field="last_updated_at">-</span></li>' +
             '</ul>' +
             '</div>' +
@@ -114,7 +114,7 @@
 
     function ensureBusuanziLoaded() {
         const existing = document.querySelector(
-            'script[data-site-info-busuanzi="1"],script[src*="busuanzi.pure.mini.js"]'
+            'script[data-site-info-busuanzi="1"],script[src*="busuanzi.min.js"]'
         );
         if (existing) {
             return;
@@ -124,7 +124,16 @@
         script.src = BUSUANZI_SCRIPT_SRC;
         script.defer = true;
         script.setAttribute('data-site-info-busuanzi', '1');
+        script.addEventListener('load', refreshBusuanziCounter);
         document.head.appendChild(script);
+    }
+
+    function refreshBusuanziCounter() {
+        try {
+            if (window.BUSUANZI && typeof window.BUSUANZI.fetch === 'function') {
+                window.BUSUANZI.fetch();
+            }
+        } catch (_e) {}
     }
 
     function applySiteInfo(siteInfo) {
@@ -187,6 +196,7 @@
         }
 
         ensureBusuanziLoaded();
+        refreshBusuanziCounter();
         fetchSiteInfo().then(applySiteInfo);
     }
 
