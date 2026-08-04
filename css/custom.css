@@ -235,6 +235,13 @@ body.page-transition-leaving .footer {
     letter-spacing: 0.01em;
 }
 
+@media (min-width: 769px) {
+    .column-left.is-sticky {
+        top: var(--left-sidebar-sticky-top, .75rem) !important;
+        align-self: flex-start;
+    }
+}
+
 .widget[data-type="site-info"] .site-info-list {
     margin-top: 0.25rem;
 }
