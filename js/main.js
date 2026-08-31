@@ -1,32 +1,36 @@
 /* eslint-disable node/no-unsupported-features/node-builtins */
 (function($, moment, ClipboardJS, config) {
+    function isSafeResourceUrl(value) {
+        if (typeof value !== 'string' || !value.trim()) {
+            return false;
+        }
+        try {
+            const resolved = new URL(value, window.location.href);
+            return resolved.protocol === 'http:' || resolved.protocol === 'https:';
+        } catch (_error) {
+            return false;
+        }
+    }
+
     $('.article img:not(".not-gallery-item")').each(function() {
         // wrap images with link and add caption if possible
-        if ($(this).parent('a').length === 0) {
-            const source = this.getAttribute('src') || '';
-            let safeSource = '';
-            try {
-                const parsed = new URL(source, window.location.href);
-                if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
-                    safeSource = parsed.href;
-                }
-            } catch (error) {
-                safeSource = '';
-            }
-            if (!safeSource) {
-                return;
-            }
-            const link = document.createElement('a');
-            link.className = 'gallery-item';
-            link.href = safeSource;
-            this.parentNode.insertBefore(link, this);
-            link.appendChild(this);
-            if (this.alt) {
-                const caption = document.createElement('p');
-                caption.className = 'has-text-centered is-size-6 caption';
-                caption.textContent = this.alt;
-                link.parentNode.insertBefore(caption, link.nextSibling);
-            }
+        const image = this;
+        const source = image.getAttribute('src');
+        if (image.closest('a') || !isSafeResourceUrl(source)) {
+            return;
+        }
+
+        const link = document.createElement('a');
+        link.className = 'gallery-item';
+        link.href = source;
+        image.parentNode.insertBefore(link, image);
+        link.appendChild(image);
+
+        if (image.alt) {
+            const caption = document.createElement('p');
+            caption.className = 'has-text-centered is-size-6 caption';
+            caption.textContent = image.alt;
+            link.parentNode.insertBefore(caption, link.nextSibling);
         }
     });
 
@@ -71,7 +75,12 @@
     }
 
     function createFoldButton(fold) {
-        return '<span class="fold">' + (fold === 'unfolded' ? '<i class="fas fa-angle-down"></i>' : '<i class="fas fa-angle-right"></i>') + '</span>';
+        const button = document.createElement('span');
+        button.className = 'fold';
+        const icon = document.createElement('i');
+        icon.className = fold === 'unfolded' ? 'fas fa-angle-down' : 'fas fa-angle-right';
+        button.appendChild(icon);
+        return button;
     }
 
     $('figure.highlight table').wrap('<div class="highlight-body">');
@@ -109,7 +118,14 @@
         if (typeof ClipboardJS !== 'undefined' && clipboard) {
             $('figure.highlight').each(function() {
                 const id = 'code-' + Date.now() + (Math.random() * 1000 | 0);
-                const button = '<a href="javascript:;" class="copy" title="Copy" data-clipboard-target="#' + id + ' .code"><i class="fas fa-copy"></i></a>';
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'copy';
+                button.title = 'Copy';
+                button.setAttribute('data-clipboard-target', '#' + id + ' .code');
+                const icon = document.createElement('i');
+                icon.className = 'fas fa-copy';
+                button.appendChild(icon);
                 $(this).attr('id', id);
                 $(this).find('figcaption div.level-right').append(button);
             });

@@ -91,25 +91,30 @@
             if (!post || typeof post.href !== 'string' || typeof post.title !== 'string') {
                 return;
             }
-            const href = post.href.trim();
+            const href = getSafeInternalUrl(post.href);
             const title = post.title.trim();
-            let safeHref = '';
-            try {
-                const parsed = new URL(href, window.location.href);
-                if ((parsed.protocol !== 'http:' && parsed.protocol !== 'https:')
-                    || parsed.origin !== window.location.origin) {
-                    return;
-                }
-                safeHref = parsed.href;
-            } catch (error) {
+            if (!href || !title || unique.has(href)) {
                 return;
             }
-            if (!safeHref || !title || unique.has(safeHref)) {
-                return;
-            }
-            unique.set(safeHref, { href: safeHref, title: title });
+            unique.set(href, { href: href, title: title });
         });
         return Array.from(unique.values());
+    }
+
+    function getSafeInternalUrl(value) {
+        if (typeof value !== 'string' || !value.trim()) {
+            return null;
+        }
+        try {
+            const resolved = new URL(value, window.location.href);
+            if ((resolved.protocol !== 'http:' && resolved.protocol !== 'https:')
+                || resolved.origin !== window.location.origin) {
+                return null;
+            }
+            return resolved.href;
+        } catch (_error) {
+            return null;
+        }
     }
 
     function parseCategoryPosts(html) {
@@ -127,15 +132,8 @@
     }
 
     async function fetchCategoryPosts(categoryUrl) {
-        let resolvedUrl;
-        try {
-            const parsed = new URL(categoryUrl, window.location.href);
-            if ((parsed.protocol !== 'http:' && parsed.protocol !== 'https:')
-                || parsed.origin !== window.location.origin) {
-                return [];
-            }
-            resolvedUrl = parsed.toString();
-        } catch (error) {
+        const resolvedUrl = getSafeInternalUrl(categoryUrl);
+        if (!resolvedUrl) {
             return [];
         }
         if (!categoryPostCache.has(resolvedUrl)) {

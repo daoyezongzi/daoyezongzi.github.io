@@ -7,31 +7,6 @@ function loadInsight(config, translation) {
   const $main = $('.searchbox');
   const $input = $main.find('.searchbox-input');
   const $container = $main.find('.searchbox-body');
-  const MAX_QUERY_LENGTH = 128;
-
-  function escapeHtml(value) {
-    return String(value == null ? '' : value).replace(/[&<>"']/g, (char) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;',
-    }[char]));
-  }
-
-  function safeUrl(value) {
-    try {
-      const parsed = new URL(String(value == null ? '' : value), window.location.href);
-      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '#';
-      return parsed.href;
-    } catch (error) {
-      return '#';
-    }
-  }
-
-  function escapeRegExp(value) {
-    return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
 
   function section(title) {
     return $('<section>').addClass('searchbox-result-section').append($('<header>').text(title));
@@ -53,9 +28,8 @@ function loadInsight(config, translation) {
   }
 
   function findAndHighlight(text, matches, maxlen) {
-    text = String(text == null ? '' : text);
     if (!Array.isArray(matches) || !matches.length || !text) {
-      return maxlen ? escapeHtml(text.slice(0, maxlen)) : escapeHtml(text);
+      return maxlen ? text.slice(0, maxlen) : text;
     }
     const testText = text.toLowerCase();
     const indices = matches
@@ -74,7 +48,7 @@ function loadInsight(config, translation) {
       });
 
     if (!indices.length) {
-      return escapeHtml(text);
+      return text;
     }
 
     let result = '';
@@ -87,18 +61,17 @@ function loadInsight(config, translation) {
 
     for (let i = 0; i < ranges.length; i++) {
       const range = ranges[i];
-      const beforeEnd = maxlen ? Math.min(range[0], sumRange[0] + maxlen) : range[0];
-      result += escapeHtml(text.slice(last, beforeEnd));
+      result += text.slice(last, Math.min(range[0], sumRange[0] + maxlen));
       if (maxlen && range[0] >= sumRange[0] + maxlen) {
         break;
       }
-      result += '<em>' + escapeHtml(text.slice(range[0], range[1])) + '</em>';
+      result += '<em>' + text.slice(range[0], range[1]) + '</em>';
       last = range[1];
       if (i === ranges.length - 1) {
         if (maxlen) {
-          result += escapeHtml(text.slice(range[1], Math.min(text.length, sumRange[0] + maxlen + 1)));
+          result += text.slice(range[1], Math.min(text.length, sumRange[0] + maxlen + 1));
         } else {
-          result += escapeHtml(text.slice(range[1]));
+          result += text.slice(range[1]);
         }
       }
     }
@@ -107,13 +80,12 @@ function loadInsight(config, translation) {
   }
 
   function searchItem(icon, title, slug, preview, url) {
-    title = title != null && title !== '' ? title : escapeHtml(translation.untitled);
-    const safeLink = escapeHtml(safeUrl(url));
+    title = title != null && title !== '' ? title : translation.untitled;
     const subtitle = slug
       ? '<span class="searchbox-result-title-secondary">(' + slug + ')</span>'
       : '';
 
-    return `<a class="searchbox-result-item" href="${safeLink}">
+    return `<a class="searchbox-result-item" href="${url}">
             <span class="searchbox-result-icon">
                 <i class="fa fa-${icon}" />
             </span>
@@ -155,7 +127,7 @@ function loadInsight(config, translation) {
   }
 
   function parseKeywords(keywords) {
-    return String(keywords == null ? '' : keywords).slice(0, MAX_QUERY_LENGTH)
+    return keywords
       .split(' ')
       .filter((keyword) => {
         return !!keyword;
@@ -177,7 +149,7 @@ function loadInsight(config, translation) {
         if (!Object.prototype.hasOwnProperty.call(obj, field)) {
           return false;
         }
-        if (String(obj[field]).toLowerCase().indexOf(keyword) > -1) {
+        if (obj[field].toLowerCase().indexOf(keyword) > -1) {
           return true;
         }
         return false;
@@ -216,10 +188,10 @@ function loadInsight(config, translation) {
   function weight(keywords, obj, fields, weights) {
     let value = 0;
     parseKeywords(keywords).forEach((keyword) => {
-      const pattern = new RegExp(escapeRegExp(keyword), 'img'); // Global, Multi-line, Case-insensitive
+      const pattern = new RegExp(keyword, 'img'); // Global, Multi-line, Case-insensitive
       fields.forEach((field, index) => {
         if (Object.prototype.hasOwnProperty.call(obj, field)) {
-          const matches = String(obj[field]).match(pattern);
+          const matches = obj[field].match(pattern);
           value += matches ? matches.length * weights[index] : 0;
         }
       });
@@ -326,7 +298,7 @@ function loadInsight(config, translation) {
       $main.addClass('show');
     }
     $input.on('input', function () {
-      const keywords = String($(this).val() || '').slice(0, MAX_QUERY_LENGTH);
+      const keywords = $(this).val();
       searchResultToDOM(keywords, search(json, keywords));
     });
     $input.trigger('input');

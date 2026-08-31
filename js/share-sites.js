@@ -25,7 +25,9 @@
 
         if (typeof window.socialShare === 'function') {
             document.querySelectorAll('.social-share').forEach(function(container) {
-                container.innerHTML = '';
+                while (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
             });
             window.socialShare('.social-share', { sites: shareSites });
             return;

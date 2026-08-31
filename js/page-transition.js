@@ -52,11 +52,14 @@
         }
 
         const hrefAttr = anchor.getAttribute('href');
+        const normalizedHref = typeof hrefAttr === 'string' ? hrefAttr.trim().toLowerCase() : '';
         if (!hrefAttr ||
             hrefAttr.startsWith('#') ||
-            hrefAttr.startsWith('javascript:') ||
-            hrefAttr.startsWith('mailto:') ||
-            hrefAttr.startsWith('tel:')) {
+            normalizedHref.startsWith('javascript:') ||
+            normalizedHref.startsWith('data:') ||
+            normalizedHref.startsWith('vbscript:') ||
+            normalizedHref.startsWith('mailto:') ||
+            normalizedHref.startsWith('tel:')) {
             return false;
         }
 
@@ -67,6 +70,9 @@
             return false;
         }
 
+        if (nextUrl.protocol !== 'http:' && nextUrl.protocol !== 'https:') {
+            return false;
+        }
         if (nextUrl.origin !== window.location.origin) {
             return false;
         }
