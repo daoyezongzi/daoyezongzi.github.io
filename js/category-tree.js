@@ -93,10 +93,21 @@
             }
             const href = post.href.trim();
             const title = post.title.trim();
-            if (!href || !title || unique.has(href)) {
+            let safeHref = '';
+            try {
+                const parsed = new URL(href, window.location.href);
+                if ((parsed.protocol !== 'http:' && parsed.protocol !== 'https:')
+                    || parsed.origin !== window.location.origin) {
+                    return;
+                }
+                safeHref = parsed.href;
+            } catch (error) {
                 return;
             }
-            unique.set(href, { href: href, title: title });
+            if (!safeHref || !title || unique.has(safeHref)) {
+                return;
+            }
+            unique.set(safeHref, { href: safeHref, title: title });
         });
         return Array.from(unique.values());
     }
@@ -116,7 +127,17 @@
     }
 
     async function fetchCategoryPosts(categoryUrl) {
-        const resolvedUrl = new URL(categoryUrl, window.location.href).toString();
+        let resolvedUrl;
+        try {
+            const parsed = new URL(categoryUrl, window.location.href);
+            if ((parsed.protocol !== 'http:' && parsed.protocol !== 'https:')
+                || parsed.origin !== window.location.origin) {
+                return [];
+            }
+            resolvedUrl = parsed.toString();
+        } catch (error) {
+            return [];
+        }
         if (!categoryPostCache.has(resolvedUrl)) {
             const request = fetch(resolvedUrl, { credentials: 'same-origin' })
                 .then(function(response) {

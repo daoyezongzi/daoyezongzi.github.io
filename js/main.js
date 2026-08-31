@@ -3,9 +3,29 @@
     $('.article img:not(".not-gallery-item")').each(function() {
         // wrap images with link and add caption if possible
         if ($(this).parent('a').length === 0) {
-            $(this).wrap('<a class="gallery-item" href="' + $(this).attr('src') + '"></a>');
+            const source = this.getAttribute('src') || '';
+            let safeSource = '';
+            try {
+                const parsed = new URL(source, window.location.href);
+                if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+                    safeSource = parsed.href;
+                }
+            } catch (error) {
+                safeSource = '';
+            }
+            if (!safeSource) {
+                return;
+            }
+            const link = document.createElement('a');
+            link.className = 'gallery-item';
+            link.href = safeSource;
+            this.parentNode.insertBefore(link, this);
+            link.appendChild(this);
             if (this.alt) {
-                $(this).after('<p class="has-text-centered is-size-6 caption">' + this.alt + '</p>');
+                const caption = document.createElement('p');
+                caption.className = 'has-text-centered is-size-6 caption';
+                caption.textContent = this.alt;
+                link.parentNode.insertBefore(caption, link.nextSibling);
             }
         }
     });

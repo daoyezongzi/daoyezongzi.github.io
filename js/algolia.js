@@ -1,6 +1,25 @@
 /* global instantsearch, algoliasearch */
 // eslint-disable-next-line no-unused-vars
 function loadAlgolia(config, translation) {
+  function escapeHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[char]));
+  }
+
+  function safeUrl(value) {
+    try {
+      const parsed = new URL(String(value == null ? '' : value), window.location.href);
+      return parsed.protocol === 'http:' || parsed.protocol === 'https:' ? parsed.href : '#';
+    } catch (error) {
+      return '#';
+    }
+  }
+
   const search = instantsearch({
     indexName: config.indexName,
     searchClient: algoliasearch(config.applicationId, config.apiKey),
@@ -36,14 +55,14 @@ function loadAlgolia(config, translation) {
   search.addWidget(
     instantsearch.widgets.hits({
       container: '.searchbox-body',
-      escapeHTML: false,
+      escapeHTML: true,
       cssClasses: {
         root: 'searchbox-result-container',
         emptyRoot: ['searchbox-result-item', 'disabled'],
       },
       templates: {
         empty: function (results) {
-          return translation.no_result + ': ' + results.query;
+          return translation.no_result + ': ' + escapeHtml(results.query);
         },
         item: function (hit) {
           let title = instantsearch.highlight({ attribute: 'title', hit });
@@ -56,8 +75,9 @@ function loadAlgolia(config, translation) {
             .replace(/(\[algolia-highlight\])/gi, '<em>')
             .replace(/(\[\/algolia-highlight\])/gi, '</em>');
           excerpt = excerpt ? excerpt : translation.empty_preview;
+          const safeLink = escapeHtml(safeUrl(hit.permalink));
           return `<section class="searchbox-result-section">
-                        <a class="searchbox-result-item" href="${hit.permalink}">
+                        <a class="searchbox-result-item" href="${safeLink}">
                             <span class="searchbox-result-content">
                                 <span class="searchbox-result-title">${title}</span>
                                 <span class="searchbox-result-preview">${excerpt}</span>
