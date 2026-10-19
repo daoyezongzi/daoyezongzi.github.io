@@ -1,0 +1,1 @@
+import{t as e}from"./pagination.C7xLkKj-.js";var t=class extends HTMLElement{connectedCallback(){let t=[...this.querySelectorAll(`[data-page-item]`)],n=this.dataset.parameter,r=e(this,()=>t,n);window.addEventListener(`popstate`,r.render),r.render()}};customElements.define(`paginated-list`,t);
