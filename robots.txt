@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://daoyezongzi.org/sitemap-index.xml
+Sitemap: https://nochi.net/sitemap-index.xml
